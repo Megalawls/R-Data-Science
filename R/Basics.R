@@ -67,13 +67,3 @@ readAndWrite <- function(){
   odds <- apply(evens, 2, function(x) x+1)
   write.csv(odds, "odds.csv", row.names = F)
 }
-
-
-library(ggplot2)
-data("iris")
-testdata <- iris
-
-#Line below modifies the row 120 of petal width with the function provided, just wanted to faff with R
-#testdata["120",c("Petal.Width")] <- lapply(testdata["120",c("Petal.Width")], function(x) x+20)
-
-View(testdata)
