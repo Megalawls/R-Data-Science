@@ -30,19 +30,11 @@ chicks <- c(getResults1, getResults2, getResults3, getResults4)
 
 finalChicks <- do.call(rbind, chicks)
 
-ggplot(finalChicks, aes(x=days, y=meanWeight)) + geom_line()
-
-# plot(meanWeight~days,
-#      data=finalChicks,
-#      xlab="Days",
-#      ylab="Mean Weight",
-#      pch=c(20,20,20,20)[diet],
-#      col=c("green", "red", "blue", "black")[diet])
-# legend("topleft",
-#        title="Diet",
-#        legend=levels(finalChicks$diet),
-#        col=c("green", "red", "blue", "black"),
-#        pch=c(1:4))
+ggplot(finalChicks, aes(x=days, y=meanWeight, group=diet, color=diet)) + 
+      geom_line(size=1) + 
+      scale_color_manual(name="Chick Diet", values=c("#ff33cc", "#ff00ff", "#ff66ff", "#ff66cc")) +
+      xlab("Age in Days") +
+      ylab("Average Weight") 
 
 
 chikkens <- list()
@@ -53,10 +45,10 @@ chikkens <- list()
   highestAge <- max(temp$Time)
   totalGrowth <- max(temp$weight)-min(temp$weight)
   growthRate <- totalGrowth/highestAge
-  # print(growthRate) #measured in gm per day
+          print(growthRate) #measured in gm per day
   chikkens[[chikken]] <- data.frame(chikken, chickDiet, highestAge, totalGrowth, growthRate)
 }
 
 finalData <- do.call(rbind, chikkens)
 
-# # boxplot(growthRate~chickDiet, data=finalData, xlab="Diet", ylab="Growth Rate (Total growth/time in g/Day)")
+boxplot(growthRate~chickDiet, data=finalData, xlab="Diet", ylab="Growth Rate (Total growth/time in g/Day)")
